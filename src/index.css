@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@media (pointer: fine) {
+  body, a, button, [role="button"] {
+    cursor: none !important;
+  }
+}

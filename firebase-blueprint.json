@@ -1,0 +1,132 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user of the Digital Daming Palace platform.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The unique identifier of the user."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "The email address of the user."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The display name of the user."
+        },
+        "photoURL": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the user's profile picture."
+        },
+        "role": {
+          "type": "string",
+          "enum": ["user", "admin"],
+          "description": "The role of the user."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the user was created."
+        }
+      },
+      "required": ["uid", "email", "role", "createdAt"]
+    },
+    "Material": {
+      "title": "Material",
+      "description": "A digital material or resource related to Daming Palace.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier of the material."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the material."
+        },
+        "description": {
+          "type": "string",
+          "description": "A detailed description of the material."
+        },
+        "type": {
+          "type": "string",
+          "enum": ["image", "video", "document", "3d_model"],
+          "description": "The type of the material."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL to access the material."
+        },
+        "thumbnailUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the material's thumbnail."
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Tags associated with the material."
+        },
+        "authorUid": {
+          "type": "string",
+          "description": "The UID of the user who uploaded the material."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the material was uploaded."
+        }
+      },
+      "required": ["id", "title", "type", "url", "authorUid", "createdAt"]
+    },
+    "UserFavorite": {
+      "title": "UserFavorite",
+      "description": "A record of a user favoriting a material.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The UID of the user."
+        },
+        "materialId": {
+          "type": "string",
+          "description": "The ID of the favorited material."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the favorite was created."
+        }
+      },
+      "required": ["userId", "materialId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/User"
+      },
+      "description": "Stores user profiles."
+    },
+    "/materials/{materialId}": {
+      "schema": {
+        "$ref": "#/entities/Material"
+      },
+      "description": "Stores digital materials."
+    },
+    "/userFavorites/{favoriteId}": {
+      "schema": {
+        "$ref": "#/entities/UserFavorite"
+      },
+      "description": "Stores user favorite records."
+    }
+  }
+}
