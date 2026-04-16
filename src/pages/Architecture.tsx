@@ -1,95 +1,185 @@
-import React, { useState } from 'react';
-import TopNav from '../components/TopNav';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { InteractiveStructureImage, type StructureRegion } from '../components/InteractiveStructureImage';
+import { FloorPlan } from '../components/FloorPlan';
+import { AiAssistant } from '../components/AiAssistant';
+import { cn } from '../lib/utils';
+import { motion, AnimatePresence } from 'motion/react';
 
-const buildings = [
-  {
-    id: 'hanyuan',
-    name: '含元殿',
-    desc: '大明宫正殿，举行重大庆典和元旦、冬至大朝会之所。',
-    image: 'https://images.unsplash.com/photo-1599839619722-39751411ea63?q=80&w=1200&auto=format&fit=crop'
+type Region = StructureRegion;
+type DetailRegion = Exclude<Region, 'overview' | null>;
+
+type RegionContent = {
+  title: string;
+  desc: string;
+  researchTitle?: string;
+  researchDesc?: string;
+};
+
+const REGION_CONTENT: Record<DetailRegion, RegionContent> = {
+  base: {
+    title: '高台选址',
+    desc: '依天然地势建于三层大台之上，实测殿基高于坡下平地15.6米。高差设计营造磅礴气势。',
+    researchTitle: '考古与复原差异',
+    researchDesc: '关于台基的具体测量数据，学术界复原（76.8m x 43m）与考古实测（75.9m x 41.3m）存在细微差异。模型搭建建议以实际遗址测量数据作为夯土底座的基础轮廓，并以学术复原成果作为上部木构尺度参考。'
   },
-  {
-    id: 'linde',
-    name: '麟德殿',
-    desc: '大明宫内规模最大的建筑，是皇帝宴会、接见外国使节的场所。',
-    image: 'https://images.unsplash.com/photo-1584470876793-13b3e20d8281?q=80&w=1200&auto=format&fit=crop'
+  mainHall: {
+    title: '重檐结构',
+    desc: '采用了高级别的“重檐”结构。唐代李华在《含元殿赋》中有“飞重檐以切霞”的记载。',
+    researchTitle: '梁架结构科学',
+    researchDesc: '复原时以木柱梁架承重为主。遗址背部发掘出厚达1.2米的土墙遗迹，后续研究认为在西安地震带环境下，仅依靠土墙承托如此大尺度重檐屋顶并不合理，因此复原模型更强调梁架体系。'
   },
-  {
-    id: 'danfeng',
-    name: '丹凤门',
-    desc: '大明宫正南门，被誉为“盛唐第一门”。',
-    image: 'https://images.unsplash.com/photo-1542051812871-757500850028?q=80&w=1200&auto=format&fit=crop'
+  sidePavilions: {
+    title: '双阁与飞廊',
+    desc: '主殿前左右两侧分峙翔鸾阁与栖凤阁。主殿与两阁之间通过二层飞廊相连，形成宏大的“凹”字形正立面轮廓。'
   },
-  {
-    id: 'taiye',
-    name: '太液池',
-    desc: '大明宫内的皇家园林，风景秀丽，是皇室休闲游览之地。',
-    image: 'https://images.unsplash.com/photo-1523730205978-59fd1b2965e3?q=80&w=1200&auto=format&fit=crop'
+  ramp: {
+    title: '龙尾道动线',
+    desc: '殿前正中设有一条长达70余米的阶梯式坡道，称为“龙尾道”，自平地三折而上。'
   }
+};
+
+const HISTORY = [
+  { year: '贞观八年 (634年)', event: '初建' },
+  { year: '龙朔二年 (662年)', event: '重启' },
+  { year: '龙朔三年 (663年)', event: '完工' },
+  { year: '光启元年 (885年)', event: '战火被毁' },
+];
+
+const NAV_ITEMS: { id: Region; label: string }[] = [
+  { id: null, label: '沉浸全景' },
+  { id: 'overview', label: '历史形制' },
+  { id: 'base', label: '高台选址' },
+  { id: 'mainHall', label: '重檐主殿' },
+  { id: 'sidePavilions', label: '双阁飞廊' },
+  { id: 'ramp', label: '龙尾道' },
 ];
 
 export default function Architecture() {
-  const [activeId, setActiveId] = useState(buildings[0].id);
-  const activeBuilding = buildings.find(b => b.id === activeId) || buildings[0];
+  const [activeRegion, setActiveRegion] = useState<Region>(null);
+  const detailRegion = activeRegion && activeRegion !== 'overview' ? activeRegion : null;
+  const detailContent = detailRegion ? REGION_CONTENT[detailRegion] : null;
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-black text-white font-sans">
-      <TopNav />
-      
-      {/* Background Image */}
+    <div className="relative h-screen w-screen overflow-hidden bg-stone-950 pt-[84px] font-sans text-stone-200 md:pt-[88px]">
       <div className="absolute inset-0 z-0">
-        <motion.img
-          key={activeBuilding.id}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 0.6, scale: 1 }}
-          transition={{ duration: 1.5 }}
-          src={activeBuilding.image}
-          alt={activeBuilding.name}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/80"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 md:via-transparent to-transparent"></div>
+        <InteractiveStructureImage activeRegion={activeRegion} setActiveRegion={setActiveRegion} />
       </div>
 
-      {/* Main Content */}
-      <div className="relative z-10 w-full h-full flex flex-col justify-end pb-40 md:pb-32 px-6 md:px-16">
-        <div className="max-w-3xl">
-          <motion.h1 
-            key={`title-${activeBuilding.id}`}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl md:text-7xl font-serif font-medium tracking-widest mb-4 md:mb-6 drop-shadow-2xl"
+      <div className="pointer-events-none absolute left-6 top-24 z-20 md:left-12 md:top-28">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
+          <h1
+            className="font-serif-sc mb-2 text-4xl font-black tracking-wider text-stone-100 md:text-7xl"
+            style={{ textShadow: '0 4px 20px rgba(0,0,0,0.8)' }}
           >
-            {activeBuilding.name}
-          </motion.h1>
-          <motion.p 
-            key={`desc-${activeBuilding.id}`}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-base md:text-xl text-gray-300 tracking-widest leading-relaxed drop-shadow-lg"
+            大明宫含元殿
+          </h1>
+          <h2
+            className="text-lg font-bold tracking-[0.35em] text-[#d4af37] md:text-2xl"
+            style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}
           >
-            {activeBuilding.desc}
-          </motion.p>
+            大唐皇朝的正殿威仪
+          </h2>
+        </motion.div>
+      </div>
+
+      <div className="pointer-events-none absolute left-4 right-4 top-36 bottom-36 z-20 flex md:left-auto md:right-12 md:top-28 md:bottom-28 md:w-full md:max-w-md">
+        <AnimatePresence mode="wait">
+          {activeRegion === 'overview' && (
+            <motion.div
+              key="overview"
+              initial={{ opacity: 0, x: 20, filter: 'blur(10px)' }}
+              animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, x: 20, filter: 'blur(10px)' }}
+              transition={{ duration: 0.4 }}
+              className="custom-scrollbar pointer-events-auto ml-auto flex max-h-full w-full flex-col gap-6 overflow-y-auto rounded-2xl border border-stone-500/30 bg-stone-900/50 p-5 shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-xl md:p-6"
+            >
+              <div className="text-sm leading-relaxed text-stone-200">
+                在构建大明宫含元殿的数字化复原模型以展现中国古代建筑成就时，核心建筑形制如下：含元殿建于高15.6米的龙首原三层台基上，殿身面阔十一间，采用重檐结构，东西两侧飞廊连接翔鸾、栖凤二阁，殿前延伸有70余米的龙尾道。
+              </div>
+
+              <div>
+                <h3 className="font-serif-sc mb-4 flex items-center gap-2 text-lg font-bold text-[#d4af37]">
+                  <span className="inline-block h-4 w-1 rounded-full bg-[#d4af37]"></span>
+                  历史沿革
+                </h3>
+                <div className="relative space-y-3 before:absolute before:inset-0 before:ml-2 before:h-full before:w-px before:bg-stone-600">
+                  {HISTORY.map((item, i) => (
+                    <div key={i} className="relative flex items-center gap-4 pl-6">
+                      <div className="absolute left-[5px] h-2 w-2 rounded-full bg-[#b91c1c] shadow-[0_0_8px_rgba(185,28,28,0.8)]"></div>
+                      <div className="w-24 shrink-0 text-sm font-bold text-[#d4af37]">{item.year}</div>
+                      <div className="text-sm text-stone-300">{item.event}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-2 h-48">
+                <FloorPlan />
+              </div>
+            </motion.div>
+          )}
+
+          {detailRegion && detailContent && (
+            <motion.div
+              key={detailRegion}
+              initial={{ opacity: 0, x: 20, filter: 'blur(10px)' }}
+              animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, x: 20, filter: 'blur(10px)' }}
+              transition={{ duration: 0.4 }}
+              className="pointer-events-auto ml-auto flex w-full flex-col gap-6 rounded-2xl border border-[#d4af37]/40 bg-stone-900/60 p-6 shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-xl md:p-8"
+            >
+              <div>
+                <h3 className="font-serif-sc mb-4 flex items-center gap-3 text-2xl font-bold text-[#d4af37] md:text-3xl">
+                  <span className="inline-block h-8 w-1.5 rounded-full bg-[#b91c1c]"></span>
+                  {detailContent.title}
+                </h3>
+                <p className="text-base leading-relaxed text-stone-200 md:text-lg">
+                  {detailContent.desc}
+                </p>
+              </div>
+
+              {detailContent.researchTitle && (
+                <div className="border-t border-stone-700/50 pt-6">
+                  <h4 className="font-serif-sc mb-3 text-xl font-bold text-[#b91c1c]">
+                    {detailContent.researchTitle}
+                  </h4>
+                  {detailContent.researchDesc && (
+                    <p className="text-sm leading-relaxed text-stone-300">
+                      {detailContent.researchDesc}
+                    </p>
+                  )}
+                </div>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      <div className="absolute bottom-20 left-1/2 z-30 w-[calc(100%-1.5rem)] max-w-5xl -translate-x-1/2 px-2 md:bottom-8 md:w-auto md:px-0">
+        <div className="flex flex-wrap items-center justify-center gap-1 rounded-[28px] border border-stone-500/40 bg-stone-900/60 p-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-xl md:gap-2">
+          {NAV_ITEMS.map((item) => (
+            <button
+              key={item.id || 'null'}
+              onClick={() => setActiveRegion(item.id)}
+              onMouseEnter={() => setActiveRegion(item.id)}
+              className={cn(
+                'rounded-full px-4 py-2 text-xs font-bold transition-all duration-300 md:text-sm',
+                activeRegion === item.id
+                  ? 'bg-[#d4af37] text-stone-950 shadow-[0_0_15px_rgba(212,175,55,0.5)]'
+                  : 'text-stone-300 hover:bg-stone-800/50 hover:text-[#d4af37]'
+              )}
+            >
+              {item.label}
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* Building Selector */}
-      <div className="absolute bottom-0 left-0 right-0 z-20 grid grid-cols-2 md:flex h-auto md:h-24 bg-black/80 md:bg-black/60 backdrop-blur-md border-t border-white/10">
-        {buildings.map((building) => (
-          <button
-            key={building.id}
-            onClick={() => setActiveId(building.id)}
-            className={`flex-1 flex flex-col items-center justify-center py-4 md:py-0 transition-colors border-r border-b md:border-b-0 border-white/10 last:border-r-0 ${
-              activeId === building.id ? 'bg-red-700/90 text-white' : 'hover:bg-white/5 text-gray-400'
-            }`}
-          >
-            <span className="text-sm md:text-lg font-medium tracking-widest">{building.name}</span>
-          </button>
-        ))}
-      </div>
+      <AiAssistant />
     </div>
   );
 }
