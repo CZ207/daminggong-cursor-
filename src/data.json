@@ -2,10 +2,10 @@
   "nodes": [
     { "id": "root", "label": "大明宫", "group": 0 },
     { "id": "danfeng", "label": "丹凤门", "group": 1 },
-    { "id": "jianfu", "label": "建福门", "group": 1 },
-    { "id": "wangxian", "label": "望仙门", "group": 1 },
+    { "id": "hanliang", "label": "寒凉殿", "group": 1 },
+    { "id": "wangxian", "label": "望仙台", "group": 1 },
     { "id": "xuanwu", "label": "玄武门", "group": 1 },
-    { "id": "chongxuan", "label": "重玄门", "group": 1 },
+    { "id": "dafu", "label": "大福殿", "group": 1 },
     { "id": "hanyuan", "label": "含元殿", "group": 2 },
     { "id": "xuanzheng", "label": "宣政殿", "group": 2 },
     { "id": "zichen", "label": "紫宸殿", "group": 2 },
