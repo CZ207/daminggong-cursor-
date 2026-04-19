@@ -34,9 +34,9 @@ export default function TopNav() {
 
   const navLinks = [
     { path: '/', label: '首页' },
-    { path: '/architecture', label: '含元殿' },
+    { path: '/architecture', label: '宫阙形制' },
     { path: '/history', label: '历史长河' },
-    { path: '/hanyuan', label: '数字含元殿' },
+    { path: '/hanyuan', label: '3D知识图谱' },
     { path: '/ai', label: 'AI+大明宫' },
   ];
 
@@ -46,7 +46,7 @@ export default function TopNav() {
         <Link to="/" className="flex items-center space-x-2">
           <div className="flex h-8 w-8 items-center justify-center border border-red-600 text-sm font-bold text-red-600">唐</div>
           <div className="flex flex-col">
-            <span className="text-lg font-bold tracking-widest md:text-xl">AI+大明宫</span>
+            <span className="text-lg font-bold tracking-widest md:text-xl">大明“宫”略</span>
             <span className="text-[8px] uppercase tracking-widest opacity-70 md:text-[10px]">DIGITAL DAMING PALACE</span>
           </div>
         </Link>

@@ -75,13 +75,13 @@ export default function Architecture() {
             className="font-serif-sc mb-2 text-4xl font-black tracking-wider text-stone-100 md:text-7xl"
             style={{ textShadow: '0 4px 20px rgba(0,0,0,0.8)' }}
           >
-            大明宫含元殿
+            大明宫宫阙形制
           </h1>
           <h2
             className="text-lg font-bold tracking-[0.35em] text-[#d4af37] md:text-2xl"
             style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}
           >
-            大唐皇朝的正殿威仪
+            盛唐宫城的礼制与建筑格局
           </h2>
         </motion.div>
       </div>
@@ -98,7 +98,7 @@ export default function Architecture() {
               className="custom-scrollbar pointer-events-auto ml-auto flex max-h-full w-full flex-col gap-6 overflow-y-auto rounded-2xl border border-stone-500/30 bg-stone-900/50 p-5 shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-xl md:p-6"
             >
               <div className="text-sm leading-relaxed text-stone-200">
-                在构建大明宫含元殿的数字化复原模型以展现中国古代建筑成就时，核心建筑形制如下：含元殿建于高15.6米的龙首原三层台基上，殿身面阔十一间，采用重檐结构，东西两侧飞廊连接翔鸾、栖凤二阁，殿前延伸有70余米的龙尾道。
+                该页面以大明宫宫城建筑为核心进行数字化展示，结合丹凤门、主殿台基、重檐形制、双阁飞廊与龙尾道等要素，呈现盛唐宫阙的整体格局与空间秩序。
               </div>
 
               <div>

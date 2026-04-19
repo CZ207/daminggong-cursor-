@@ -33,7 +33,7 @@ const chapters = [
       '“大明”之名，也与帝国中心的光明、开阔和威仪紧密关联。'
     ],
     quote: '宫阙参差，当日月之中；朝班森列，立万邦之前。',
-    image: 'https://images.unsplash.com/photo-1549893074-4bc700a0f59d?q=80&w=1400&auto=format&fit=crop',
+    image: 'https://edgeoneimg.cdn.sn/i/69e4f769acdf0_1776613225.jpg',
     accent: 'from-[#7f1d1d]/25 to-[#d6b36a]/10',
     icon: CalendarDays
   },
@@ -50,7 +50,7 @@ const chapters = [
       '大明宫从“帝国中心”逐步转化为“旧日辉煌的留影”。'
     ],
     quote: '宫城犹在，盛世不返。',
-    image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1400&auto=format&fit=crop',
+    image: 'https://edgeoneimg.cdn.sn/i/69c22bb809528_1774332856.webp',
     accent: 'from-[#3f1f1f]/30 to-[#0f0c0b]/10',
     icon: Flame
   },
@@ -67,7 +67,7 @@ const chapters = [
       '大明宫由此进入“消失于地表，却留存于文明”的阶段。'
     ],
     quote: '烈火之后，唯余台基与风。',
-    image: 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?q=80&w=1400&auto=format&fit=crop',
+    image: 'https://edgeoneimg.cdn.sn/i/69c22c64eabfc_1774333028.webp',
     accent: 'from-[#5b2b24]/30 to-[#221816]/10',
     icon: Flame
   },
@@ -84,7 +84,7 @@ const chapters = [
       '今天的大明宫，是连接盛唐文明、考古学与数字传播的文化接口。'
     ],
     quote: '遗址不是终点，而是文明重新被看见的开始。',
-    image: 'https://images.unsplash.com/photo-1519608487953-e999c86e7455?q=80&w=1400&auto=format&fit=crop',
+    image: 'https://edgeoneimg.cdn.sn/i/69e4f838cf88d_1776613432.webp',
     accent: 'from-[#d6b36a]/25 to-[#23433a]/10',
     icon: ShieldCheck
   }

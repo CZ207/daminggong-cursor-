@@ -2,11 +2,20 @@ import { useState, useMemo } from 'react';
 import KnowledgeGraph from '../components/KnowledgeGraph';
 import staticData from '../data.json';
 
+/** `public/` 下的路径，随 Vite `base` 拼接 */
+function publicAssetUrl(pathFromPublicRoot: string): string {
+  const path = pathFromPublicRoot.startsWith('/') ? pathFromPublicRoot : `/${pathFromPublicRoot}`;
+  const base = import.meta.env.BASE_URL;
+  return `${base}${path.replace(/^\//, '')}`;
+}
+
 type GraphNode = {
   id: string;
   label: string;
   group?: number;
   hasHiddenChildren?: boolean;
+  description?: string;
+  image?: string;
 };
 
 type GraphLink = {
@@ -14,6 +23,8 @@ type GraphLink = {
   target: string | { id: string };
   label?: string;
 };
+
+const NODES_WITHOUT_IMAGE = new Set(['root', 'xuanzong', 'hanlin']);
 
 export default function HanyuanSearch() {
   const [selectedNode, setSelectedNode] = useState<GraphNode | null>(null);
@@ -86,6 +97,21 @@ export default function HanyuanSearch() {
       });
   }, [selectedNode]);
 
+  const selectedDetail = useMemo(() => {
+    if (!selectedNode) return null;
+    return staticData.nodes.find((n: GraphNode) => n.id === selectedNode.id) ?? null;
+  }, [selectedNode]);
+
+  /** data.json 的 image；若无则按节点 id 约定 /node-images/{id}.jpg（liyuan 为 .png） */
+  const nodeImageSrc = useMemo(() => {
+    if (!selectedNode) return null;
+    const explicit = selectedDetail?.image;
+    if (explicit) return publicAssetUrl(explicit);
+    if (NODES_WITHOUT_IMAGE.has(selectedNode.id)) return null;
+    const ext = selectedNode.id === 'liyuan' ? 'png' : 'jpg';
+    return publicAssetUrl(`/node-images/${selectedNode.id}.${ext}`);
+  }, [selectedNode, selectedDetail]);
+
   const handleNodeClick = (node: GraphNode) => {
     setSelectedNode(node);
     setExpandedNodes(prev => {
@@ -122,20 +148,34 @@ export default function HanyuanSearch() {
                 <p className="text-xs text-[#8d6e63] mb-3 font-sans">ID: {selectedNode.id}</p>
 
                 <div className="w-full aspect-video bg-[#d7ccc8] rounded-sm mb-4 overflow-hidden border border-[#bcaaa4] flex items-center justify-center relative">
-                  <img
-                    src={`https://picsum.photos/seed/${selectedNode.id}/400/300?grayscale&blur=2`}
-                    alt={selectedNode.label}
-                    className="w-full h-full object-cover opacity-80 mix-blend-multiply"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <span className="text-[#5c1a1b] font-bold text-sm bg-[#f4ebd0]/80 px-2 py-1 rounded">图片占位</span>
-                  </div>
+                  {nodeImageSrc ? (
+                    <img
+                      src={nodeImageSrc}
+                      alt={selectedNode.label}
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <>
+                      <img
+                        src={`https://picsum.photos/seed/${selectedNode.id}/400/300?grayscale&blur=2`}
+                        alt={selectedNode.label}
+                        className="w-full h-full object-cover opacity-80 mix-blend-multiply"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span className="text-[#5c1a1b] font-bold text-sm bg-[#f4ebd0]/80 px-2 py-1 rounded">
+                          暂无配图
+                        </span>
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 <div className="text-sm text-[#3e2723] leading-relaxed space-y-2">
                   <p>
-                    此处为【{selectedNode.label}】的详细介绍文本占位符。您可以在代码中根据节点的 ID ({selectedNode.id}) 动态加载并替换这里的文字内容。
+                    {selectedDetail?.description ??
+                      `暂无「${selectedNode.label}」的详细介绍，可在数据中为节点 id「${selectedNode.id}」补充 description 字段。`}
                   </p>
                 </div>
 

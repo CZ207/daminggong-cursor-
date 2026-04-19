@@ -25,7 +25,7 @@ export default function Home() {
             transition={{ duration: 1, delay: 0.2 }}
             className="text-center space-y-4"
           >
-            <h1 className="text-5xl md:text-7xl font-serif font-medium tracking-widest drop-shadow-2xl">AI+大明宫</h1>
+            <h1 className="text-5xl md:text-7xl font-serif font-medium tracking-widest drop-shadow-2xl">大明“宫”略</h1>
             <h2 className="text-2xl md:text-6xl font-light tracking-wider drop-shadow-2xl mt-2 md:mt-0">DIGITAL DAMING PALACE</h2>
             <p className="max-w-2xl mx-auto mt-6 text-sm md:text-lg text-gray-300 tracking-widest leading-relaxed px-4">
               千官望长安 万国拜含元
@@ -36,7 +36,7 @@ export default function Home() {
                 to="/architecture"
                 className="w-full md:w-auto inline-block bg-red-700 hover:bg-red-600 text-white px-10 py-3 rounded-full text-base md:text-lg font-medium tracking-widest transition-all duration-300 shadow-[0_0_20px_rgba(211,47,47,0.4)]"
               >
-                含元殿展示
+                宫阙形制
               </Link>
               <Link
                 to="/history"
@@ -51,8 +51,8 @@ export default function Home() {
 
       <div className="absolute bottom-0 left-0 right-0 z-20 grid grid-cols-2 md:flex h-auto md:h-24 border-t border-white/10 bg-black/80 md:bg-black/40 backdrop-blur-md">
         <Link to="/architecture" className="flex-1 flex flex-col items-center justify-center py-3 md:py-0 bg-red-700/90 text-white hover:bg-red-600 transition-colors">
-          <span className="text-sm md:text-lg font-medium tracking-widest">含元殿</span>
-          <span className="text-[8px] md:text-[10px] tracking-widest uppercase opacity-80 mt-1">Hanyuan Hall</span>
+          <span className="text-sm md:text-lg font-medium tracking-widest">宫阙形制</span>
+          <span className="text-[8px] md:text-[10px] tracking-widest uppercase opacity-80 mt-1">Palatial Forms</span>
         </Link>
         <Link to="/history" className="flex-1 flex flex-col items-center justify-center py-3 md:py-0 border-r border-b md:border-b-0 border-white/10 hover:bg-white/5 transition-colors">
           <span className="text-sm md:text-lg font-medium tracking-widest text-gray-300">历史长河</span>
@@ -60,18 +60,14 @@ export default function Home() {
         </Link>
         <Link to="/hanyuan" className="flex-1 flex flex-col items-center justify-center py-3 md:py-0 border-r border-white/10 hover:bg-white/5 transition-colors relative">
           <span className="absolute top-2 md:top-4 right-2 md:right-1/4 bg-red-600 text-white text-[8px] md:text-[10px] px-1.5 rounded-sm">新</span>
-          <span className="text-sm md:text-lg font-medium tracking-widest text-gray-300">数字含元殿</span>
-          <span className="text-[8px] md:text-[10px] tracking-widest uppercase opacity-60 mt-1">Digital Hanyuan Hall</span>
+          <span className="text-sm md:text-lg font-medium tracking-widest text-gray-300">3D知识图谱</span>
+          <span className="text-[8px] md:text-[10px] tracking-widest uppercase opacity-60 mt-1">3D Knowledge Graph</span>
         </Link>
         <Link to="/ai" className="flex-1 flex flex-col items-center justify-center py-3 md:py-0 hover:bg-white/5 transition-colors relative">
           <span className="absolute top-2 md:top-4 right-2 md:right-1/4 bg-red-600 text-white text-[8px] md:text-[10px] px-1.5 rounded-sm">AI</span>
           <span className="text-sm md:text-lg font-medium tracking-widest text-gray-300">AI+大明宫</span>
           <span className="text-[8px] md:text-[10px] tracking-widest uppercase opacity-60 mt-1">AI Assistant</span>
         </Link>
-      </div>
-
-      <div className="hidden md:block absolute bottom-2 right-8 z-30 text-[10px] text-gray-500 tracking-wider">
-        大明宫国家遗址公园版权所有 2010-2026 Copyright For Daming Palace National Heritage Park. 陕ICP备11000088号. 陕公网安备 62098202000041号
       </div>
     </div>
   );

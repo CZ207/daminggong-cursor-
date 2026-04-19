@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { GoogleGenAI } from '@google/genai';
-import { Send, Image as ImageIcon, X, Loader2, Bot, User, MessageSquare } from 'lucide-react';
+import { Send, X, Loader2, Bot, User, MessageSquare } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
 
@@ -8,7 +7,6 @@ interface Message {
   id: string;
   role: 'user' | 'assistant';
   content: string;
-  imageUrl?: string;
   isError?: boolean;
 }
 
@@ -18,15 +16,12 @@ export function AiAssistant() {
     {
       id: '1',
       role: 'assistant',
-      content: '您好！我是大明宫含元殿的AI助手。您可以向我提问关于这座宏伟建筑的历史、结构，或者上传相关图片让我为您分析。',
+      content: '您好！我是大明宫 AI 助手。您可以向我提问关于大明宫、含元殿、唐代建筑与历史文化的问题。',
     }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -36,35 +31,15 @@ export function AiAssistant() {
     scrollToBottom();
   }, [messages, isOpen]);
 
-  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setSelectedImage(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const removeImage = () => {
-    setSelectedImage(null);
-    setImagePreview(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if ((!input.trim() && !selectedImage) || isLoading) return;
+    if (!input.trim() || isLoading) return;
 
+    const question = input.trim();
     const userMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
-      content: input,
-      imageUrl: imagePreview || undefined,
+      content: question,
     };
 
     setMessages((prev) => [...prev, userMessage]);
@@ -72,56 +47,44 @@ export function AiAssistant() {
     setIsLoading(true);
 
     try {
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+      const apiKey = import.meta.env.VITE_DASHSCOPE_API_KEY;
       if (!apiKey) {
-        throw new Error('Missing VITE_GEMINI_API_KEY');
+        throw new Error('当前未配置 VITE_DASHSCOPE_API_KEY');
       }
 
-      const ai = new GoogleGenAI({ apiKey });
-      let responseText = '';
-
-      if (selectedImage) {
-        const base64Data = imagePreview?.split(',')[1];
-        if (!base64Data) throw new Error('Failed to process image');
-
-        const response = await ai.models.generateContent({
-          model: 'gemini-2.5-flash',
-          contents: {
-            parts: [
-              {
-                inlineData: {
-                  data: base64Data,
-                  mimeType: selectedImage.type,
-                },
-              },
-              { text: input || '请分析这张图片，特别是关于建筑结构和历史价值方面。' },
-            ],
-          },
-        });
-        responseText = response.text || '无法分析图片。';
-        removeImage();
-      } else {
-        const response = await ai.models.generateContent({
-          model: 'gemini-2.5-flash',
-          contents: input,
-          config: {
-            tools: [{ googleSearch: {} }],
-            systemInstruction: '你是一个关于中国古代建筑，特别是唐代大明宫含元殿的专家。请用专业、简洁的语言回答问题。',
-          },
-        });
-
-        responseText = response.text || '抱歉，我无法回答这个问题。';
-
-        const chunks = response.candidates?.[0]?.groundingMetadata?.groundingChunks;
-        if (chunks && chunks.length > 0) {
-          responseText += '\n\n参考来源：\n';
-          chunks.forEach((chunk: any, index: number) => {
-            if (chunk.web?.uri && chunk.web?.title) {
-              responseText += `[${index + 1}] ${chunk.web.title}: ${chunk.web.uri}\n`;
+      const response = await fetch('https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: 'qwen3.6-plus',
+          messages: [
+            {
+              role: 'system',
+              content: '你是“大明宫数字文化助手”，擅长用准确、凝练、自然的中文回答与大明宫、含元殿、唐代建筑、历史文化相关的问题；如果用户问的是泛知识问题，也正常回答。'
+            },
+            ...messages.map((message) => ({
+              role: message.role,
+              content: message.content
+            })),
+            {
+              role: 'user',
+              content: question
             }
-          });
-        }
+          ]
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        const errorMessage = data?.error?.message || data?.message || 'DashScope 请求失败。';
+        throw new Error(errorMessage);
       }
+
+      const responseText = data?.choices?.[0]?.message?.content?.trim() || '抱歉，我这次没有生成有效回复，请稍后重试。';
 
       setMessages((prev) => [
         ...prev,
@@ -132,13 +95,13 @@ export function AiAssistant() {
         },
       ]);
     } catch (error) {
-      console.error('AI Error:', error);
+      const errorMessage = error instanceof Error ? error.message : '调用 AI 服务时发生未知错误。';
       setMessages((prev) => [
         ...prev,
         {
           id: (Date.now() + 1).toString(),
           role: 'assistant',
-          content: '抱歉，处理您的请求时发生了错误。请稍后再试。',
+          content: `抱歉，处理您的请求时发生了错误：${errorMessage}`,
           isError: true,
         },
       ]);
@@ -170,7 +133,7 @@ export function AiAssistant() {
             <div className="flex items-center justify-between border-b border-cyan-800/50 bg-slate-800/50 p-4">
               <div className="flex items-center gap-2">
                 <Bot className="h-5 w-5 text-cyan-400" />
-                <h3 className="font-medium text-cyan-100">含元殿 AI 助手</h3>
+                <h3 className="font-medium text-cyan-100">大明宫 AI 助手</h3>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
@@ -203,9 +166,6 @@ export function AiAssistant() {
                       msg.isError && 'border-red-800/50 bg-red-900/50 text-red-200'
                     )}
                   >
-                    {msg.imageUrl && (
-                      <img src={msg.imageUrl} alt="Uploaded" className="mb-2 max-w-full rounded-lg border border-white/10" />
-                    )}
                     {msg.content}
                   </div>
                 </div>
@@ -225,43 +185,17 @@ export function AiAssistant() {
             </div>
 
             <div className="border-t border-cyan-800/50 bg-slate-800/30 p-4">
-              {imagePreview && (
-                <div className="relative mb-3 inline-block">
-                  <img src={imagePreview} alt="Preview" className="h-20 rounded-lg border border-cyan-700/50" />
-                  <button
-                    onClick={removeImage}
-                    className="absolute -right-2 -top-2 rounded-full border border-cyan-700 bg-slate-800 p-1 text-slate-300 hover:text-white"
-                  >
-                    <X className="h-3 w-3" />
-                  </button>
-                </div>
-              )}
               <form onSubmit={handleSubmit} className="flex gap-2">
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  ref={fileInputRef}
-                  onChange={handleImageSelect}
-                />
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  className="rounded-lg p-2 text-slate-400 transition-colors hover:bg-slate-800 hover:text-cyan-400"
-                  title="上传图片分析"
-                >
-                  <ImageIcon className="h-5 w-5" />
-                </button>
                 <input
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="输入问题..."
-                  className="flex-1 rounded-lg border border-cyan-800/50 bg-slate-800 px-3 py-2 text-sm text-white placeholder:text-slate-500 focus:border-cyan-500 focus:outline-none transition-colors"
+                  className="flex-1 rounded-lg border border-cyan-800/50 bg-slate-800 px-3 py-2 text-sm text-white placeholder:text-slate-500 transition-colors focus:border-cyan-500 focus:outline-none"
                 />
                 <button
                   type="submit"
-                  disabled={(!input.trim() && !selectedImage) || isLoading}
+                  disabled={!input.trim() || isLoading}
                   className="rounded-lg bg-cyan-600 p-2 text-white transition-colors hover:bg-cyan-500 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <Send className="h-4 w-4" />

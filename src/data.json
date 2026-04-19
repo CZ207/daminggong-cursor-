@@ -1,35 +1,213 @@
 {
   "nodes": [
-    { "id": "root", "label": "大明宫", "group": 0 },
-    { "id": "danfeng", "label": "丹凤门", "group": 1 },
-    { "id": "hanliang", "label": "寒凉殿", "group": 1 },
-    { "id": "wangxian", "label": "望仙台", "group": 1 },
-    { "id": "xuanwu", "label": "玄武门", "group": 1 },
-    { "id": "dafu", "label": "大福殿", "group": 1 },
-    { "id": "hanyuan", "label": "含元殿", "group": 2 },
-    { "id": "xuanzheng", "label": "宣政殿", "group": 2 },
-    { "id": "zichen", "label": "紫宸殿", "group": 2 },
-    { "id": "linde", "label": "麟德殿", "group": 2 },
-    { "id": "qingsi", "label": "清思殿", "group": 2 },
-    { "id": "sanqing", "label": "三清殿", "group": 2 },
-    { "id": "xiangluan", "label": "翔鸾阁", "group": 3 },
-    { "id": "qifeng", "label": "栖凤阁", "group": 3 },
-    { "id": "yanying", "label": "延英殿", "group": 3 },
-    { "id": "taizong", "label": "唐太宗", "group": 4 },
-    { "id": "gaozong", "label": "唐高宗", "group": 4 },
-    { "id": "wuzetian", "label": "武则天", "group": 4 },
-    { "id": "xuanzong", "label": "唐玄宗", "group": 4 },
-    { "id": "dezong", "label": "唐德宗", "group": 4 },
-    { "id": "xizong", "label": "唐僖宗", "group": 4 },
-    { "id": "zhaozong", "label": "唐昭宗", "group": 4 },
-    { "id": "anshi", "label": "安史之乱", "group": 5 },
-    { "id": "huangchao", "label": "黄巢起义", "group": 5 },
-    { "id": "ganlu", "label": "甘露之变", "group": 5 },
-    { "id": "jingyuan", "label": "泾原兵变", "group": 5 },
-    { "id": "taiye", "label": "太液池", "group": 6 },
-    { "id": "penglai", "label": "蓬莱山", "group": 6 },
-    { "id": "liyuan", "label": "梨园", "group": 6 },
-    { "id": "hanlin", "label": "翰林院", "group": 6 }
+    {
+      "id": "root",
+      "label": "大明宫",
+      "group": 0,
+      "description": "大明宫始建于唐贞观八年（634年），初名永安宫，后改称大明宫；龙朔三年（663年）唐高宗扩建后，长期作为唐代最重要的朝会与政务中心之一。宫城规模宏大，布局沿中轴线展开，唐末战乱中屡遭破坏，天祐元年（904年）废毁。今址建有大明宫国家遗址公园，并作为「丝绸之路：长安—天山廊道的路网」遗产点列入《世界遗产名录》。"
+    },
+    {
+      "id": "danfeng",
+      "label": "丹凤门",
+      "group": 1,
+      "description": "丹凤门是大明宫南面正门，与宫城中轴线相对，规模在五门中居首，是皇帝出入宫城、举行大典的重要礼仪空间。考古发掘揭示了多门道、墩台与城墙衔接关系，遗址上建有保护展示工程，是认识唐长安城宫城门阙形制的关键实例。",
+      "image": "/node-images/danfeng.jpg"
+    },
+    {
+      "id": "jianfu",
+      "label": "寒凉殿",
+      "group": 1,
+      "description": "图中「寒凉殿」一般对应文献与考古惯称的「含凉殿」，位于大明宫内廷北部、太液池北岸一带，属池苑与内廷相接区域，常与避暑、游观等活动相关。遗址经考古工作纳入整体保护与展示体系，可与紫宸殿以北园林建筑群一并理解。",
+      "image": "/node-images/jianfu.jpg"
+    },
+    {
+      "id": "wangxian",
+      "label": "望仙台",
+      "group": 1,
+      "description": "望仙台遗址位于大明宫东北部，相传唐武宗会昌年间曾征发神策军修筑高台，以应道教「望仙」意象；宣宗大中八年（854年）又改作文思院用途。现存夯土台基体量显著，是晚唐宫廷崇道与机构更迭的实物见证。",
+      "image": "/node-images/wangxian.jpg"
+    },
+    {
+      "id": "xuanwu",
+      "label": "玄武门",
+      "group": 1,
+      "description": "玄武门为唐大明宫北宫墙正门，北通禁苑，与丹凤门南北相望，是宫城北侧交通与防御体系的重要节点。门外一带与禁军驻防关系密切，唐代多次宫廷事变与此区域相关。考古可见门道、墩台及与重玄门等组成的纵深防御格局。",
+      "image": "/node-images/xuanwu.jpg"
+    },
+    {
+      "id": "chongxuan",
+      "label": "大福殿",
+      "group": 1,
+      "description": "大福殿遗址位于大明宫西北隅，与宫墙衔接，现存大型夯土台基，考古发现殿址规模可观。文献中亦见与佛教礼仪相关的记载，出土砖瓦、莲花纹构件等反映较高等级营造，是认识大明宫西北宗教与礼仪空间的重要遗址。",
+      "image": "/node-images/chongxuan.jpg"
+    },
+    {
+      "id": "hanyuan",
+      "label": "含元殿",
+      "group": 2,
+      "description": "含元殿是大明宫外朝正殿，建于龙首原南沿高台之上，前有龙尾道盘曲而上，气势恢宏。元旦、冬至大朝会及重大典礼多在此举行，体现唐代「外朝」礼仪与国家威仪。遗址发掘为研究唐代宫殿木构与台基制度提供了丰富材料。",
+      "image": "/node-images/hanyuan.jpg"
+    },
+    {
+      "id": "xuanzheng",
+      "label": "宣政殿",
+      "group": 2,
+      "description": "宣政殿位于含元殿以北，属「中朝」主殿，是皇帝朔望视朝、常日听政及举行册拜、读时令等政务活动的核心场所。空间上连接外朝礼仪与内廷理政，是大明宫政务轴线上承上启下的枢纽殿宇。",
+      "image": "/node-images/xuanzheng.jpg"
+    },
+    {
+      "id": "zichen",
+      "label": "紫宸殿",
+      "group": 2,
+      "description": "紫宸殿在宣政殿以北，属「内朝」，为皇帝日常议政、召见近臣之处，臣僚得入紫宸奏对被称为「入阁」，是唐代中枢决策与禁中政务的重要空间。与外朝、中朝相比，更突出机密性与日常理政功能。",
+      "image": "/node-images/zichen.jpg"
+    },
+    {
+      "id": "linde",
+      "label": "麟德殿",
+      "group": 2,
+      "description": "麟德殿由前中后三殿连通而成，体量宏大，空间灵活，常用于赐宴、观乐舞、接见使节与贵族。考古揭示的柱网与夯土基址，反映唐代大型宴会与礼仪复合空间的高超营造水平，是大明宫中最具代表性的宴飨建筑之一。",
+      "image": "/node-images/linde.jpg"
+    },
+    {
+      "id": "qingsi",
+      "label": "清思殿",
+      "group": 2,
+      "description": "清思殿位于大明宫内廷区域，史籍多记为皇帝寝居与内省活动相关之所，与池苑、别殿共同构成宫廷生活空间。具体沿革因史料简省而细节有异，总体属内廷殿宇体系中偏起居、休憩的一类建筑。",
+      "image": "/node-images/qingsi.jpg"
+    },
+    {
+      "id": "sanqing",
+      "label": "三清殿",
+      "group": 2,
+      "description": "三清殿是大明宫内道教祭祀建筑，供奉三清尊神，体现李唐皇室对道教的尊崇与宫中斋醮传统。其选址与形制反映宗教礼仪如何嵌入宫城布局，是研究唐代宫廷宗教政策与建筑类型的重要实例。",
+      "image": "/node-images/sanqing.jpg"
+    },
+    {
+      "id": "xiangluan",
+      "label": "翔鸾阁",
+      "group": 3,
+      "description": "翔鸾阁与栖凤阁分峙含元殿前东西两侧高台之上，与主殿共同构成「凹」字形布局，象征朝仪威仪与空间对称。左翔鸾、右栖凤的命名取祥瑞之意，是大朝会时仪仗与观礼体系的重要组成部分。",
+      "image": "/node-images/xiangluan.jpg"
+    },
+    {
+      "id": "qifeng",
+      "label": "栖凤阁",
+      "group": 3,
+      "description": "栖凤阁位于含元殿前西侧，与东侧翔鸾阁形制相应，共同托起中央殿宇的宏阔立面。二者既是礼仪与视觉焦点，也体现唐代宫殿群体组合中「阁道」与高台建筑的典型手法。",
+      "image": "/node-images/qifeng.jpg"
+    },
+    {
+      "id": "yanying",
+      "label": "延英殿",
+      "group": 3,
+      "description": "延英殿在宣政殿西侧别院一带，晚唐常以「延英召对」形式在此密议军国大事，君臣问答深入、历时或长，是中枢议政方式从常朝向灵活召见演变的重要场所，对理解唐后期政治运作尤为关键。",
+      "image": "/node-images/yanying.jpg"
+    },
+    {
+      "id": "taizong",
+      "label": "唐太宗",
+      "group": 4,
+      "description": "李世民（598—649），庙号太宗。贞观年间下诏营建永安宫（大明宫前身）以奉养太上皇，因太上皇去世而辍工，故宫城此期未成规模。其治世称「贞观之治」，为盛唐制度与都城建设奠定根基。",
+      "image": "/node-images/taizong.jpg"
+    },
+    {
+      "id": "gaozong",
+      "label": "唐高宗",
+      "group": 4,
+      "description": "李治（628—683），庙号高宗。龙朔二年（662年）起大兴土木扩建大明宫，次年迁入听政，自此大明宫长期成为唐帝国核心宫城。其在位时期疆域与礼仪事业扩展，亦推动长安都城格局的定型。",
+      "image": "/node-images/gaozong.jpg"
+    },
+    {
+      "id": "wuzetian",
+      "label": "武则天",
+      "group": 4,
+      "description": "武则天（624—705），武周皇帝。早年以皇后身份参预朝政，后称帝改国号为周。长安大明宫与洛阳宫城均为其统治时期重要的政务与礼仪空间，其用人与律令改革对唐代政治影响深远。",
+      "image": "/node-images/wuzetian.jpg"
+    },
+    {
+      "id": "xuanzong",
+      "label": "唐玄宗",
+      "group": 4,
+      "description": "李隆基（685—762），庙号玄宗。开元年间励精图治，史称「开元盛世」；天宝后期政局转折，安史之乱爆发。其在长安、大明宫理政与起居，常与梨园、宴乐等宫廷文化相联系，是盛唐由盛转衰的关键人物。"
+    },
+    {
+      "id": "dezong",
+      "label": "唐德宗",
+      "group": 4,
+      "description": "李适（742—805），庙号德宗。在位期间力图削藩与整顿财政，经历泾原兵变等动荡，一度出奔。贞元年间曾整顿宫城北门防务与相关工程，反映战乱后朝廷对京师宫禁安全的重视。",
+      "image": "/node-images/dezong.jpg"
+    },
+    {
+      "id": "xizong",
+      "label": "唐僖宗",
+      "group": 4,
+      "description": "李儇（862—888），庙号僖宗。在位时黄巢起义军攻入长安，朝廷播迁，宫室与都城遭受严重破坏。其朝通常被视为唐王朝中央权威急剧衰落、地方藩镇坐大的时期。",
+      "image": "/node-images/xizong.jpg"
+    },
+    {
+      "id": "zhaozong",
+      "label": "唐昭宗",
+      "group": 4,
+      "description": "李晔（867—904），庙号昭宗。力图振作而受制于藩镇与宦官，多次迁都流离。天祐元年朱温迫迁洛阳并毁长安宫室，大明宫随之废毁，唐朝名存实亡，为其个人与唐室悲剧性结局。",
+      "image": "/node-images/zhaozong.jpg"
+    },
+    {
+      "id": "anshi",
+      "label": "安史之乱",
+      "group": 5,
+      "description": "爆发于天宝十四载（755年），安禄山、史思明相继起兵，持续至广德元年（763年）平定。战乱使北方经济凋敝，藩镇割据形成，长安、洛阳屡陷，大明宫亦在动荡中遭受破坏，成为盛唐由盛转衰的分水岭。",
+      "image": "/node-images/anshi.jpg"
+    },
+    {
+      "id": "huangchao",
+      "label": "黄巢起义",
+      "group": 5,
+      "description": "乾符年间起事，广明元年（880年）黄巢军攻入长安称帝。战乱中宫室、衙署焚掠严重，大明宫建筑再遭浩劫。起义虽败，但中央对地方控制名存实亡，唐祚岌岌可危。",
+      "image": "/node-images/huangchao.jpg"
+    },
+    {
+      "id": "ganlu",
+      "label": "甘露之变",
+      "group": 5,
+      "description": "大和九年（835年）朝臣谋除宦官失败，宦官在宫中发动反击，诛杀大臣数千人，史称甘露之变。事变发生在大明宫禁中，标志着南衙与宦官势力较量的惨败，唐后期宦官专权更趋固化。",
+      "image": "/node-images/ganlu.jpg"
+    },
+    {
+      "id": "jingyuan",
+      "label": "泾原兵变",
+      "group": 5,
+      "description": "建中四年（783年）赴援的泾原兵因犒赏问题哗变攻入长安，德宗出奔奉天。叛军拥朱泚称帝，长安秩序崩溃。虽事后平定，但削藩受挫，中央威信大损，对宫城安全与政治信心打击沉重。",
+      "image": "/node-images/jingyuan.jpg"
+    },
+    {
+      "id": "taiye",
+      "label": "太液池",
+      "group": 6,
+      "description": "太液池是大明宫内大型人工湖，与蓬莱山等岛洲构成皇家园林水体景观，供游观、宴集与礼仪活动。池岸分布多组殿阁，体现「一池三山」传统与唐代宫苑融合北方园林与皇权象征的营造理念。",
+      "image": "/node-images/taiye.jpg"
+    },
+    {
+      "id": "penglai",
+      "label": "蓬莱山",
+      "group": 6,
+      "description": "蓬莱山位于太液池中，与方丈、瀛洲等意象并取神仙海岛传说，为宫苑造景核心。岛上与环湖建筑点缀其间，是皇帝与近臣游幸、道教活动的重要环境载体，反映唐代宫廷对仙境母题的审美与政治隐喻。",
+      "image": "/node-images/penglai.jpg"
+    },
+    {
+      "id": "liyuan",
+      "label": "梨园",
+      "group": 6,
+      "description": "梨园原为禁苑中教习歌舞之地，唐玄宗曾在此亲自教习「法曲」，后世遂以「梨园」泛指戏曲行当归宗之所。它体现了盛唐宫廷音乐、舞蹈与燕乐机构的高度发达，以及玄宗个人艺术嗜好与朝政交织的一面。",
+      "image": "/node-images/liyuan.png"
+    },
+    {
+      "id": "hanlin",
+      "label": "翰林院",
+      "group": 6,
+      "description": "唐代翰林学士初为文学侍从，掌起草内制诏敕，后逐渐参与机务，成为贴近皇帝的中枢文书与顾问群体。其衙署在宫城禁中一带演变，宋以后「翰林」制度更为完备，源头可追溯至唐翰林供奉传统。",
+      "image": "/node-images/hanlin.jpg"
+    }
   ],
   "links": [
     { "source": "root", "target": "danfeng", "label": "正南门" },
